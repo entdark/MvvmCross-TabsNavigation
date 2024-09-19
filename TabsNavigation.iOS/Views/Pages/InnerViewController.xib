@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InnerViewController">
+            <connections>
+                <outlet property="GoBackButton" destination="wsQ-Ao-CnD" id="xPi-me-XPk"/>
+                <outlet property="GoDeeperButton" destination="odv-gW-5Y4" id="IJs-wK-hVN"/>
+                <outlet property="StackLabel" destination="NVF-7J-ubR" id="m4Q-sP-oiH"/>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="WAF-Yg-orB">
+                    <rect key="frame" x="64" y="355.33333333333331" width="265.33333333333331" height="141.33333333333331"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tab stack depth: 2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVF-7J-ubR">
+                            <rect key="frame" x="0.0" y="0.0" width="265.33333333333331" height="40.666666666666664"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odv-gW-5Y4">
+                            <rect key="frame" x="80.333333333333343" y="56.666666666666686" width="104.33333333333334" height="34.333333333333343"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Go deeper" cornerStyle="capsule"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wsQ-Ao-CnD">
+                            <rect key="frame" x="89" y="107" width="87.333333333333314" height="34.333333333333343"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="tinted" title="Go back" cornerStyle="capsule"/>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="WAF-Yg-orB" firstAttribute="centerY" secondItem="2" secondAttribute="centerY" id="9zd-28-C2U"/>
+                <constraint firstItem="WAF-Yg-orB" firstAttribute="centerX" secondItem="2" secondAttribute="centerX" id="Eul-Qk-W3b"/>
+            </constraints>
+            <point key="canvasLocation" x="-24" y="-53"/>
+        </view>
+    </objects>
+</document>

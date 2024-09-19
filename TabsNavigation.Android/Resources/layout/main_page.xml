@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+    <TabsNavigation.Android.Controls.ViewPager
+        android:id="@+id/tabs_viewpager"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="1"/>
+    <TabsNavigation.Android.Controls.BottomNavigationView
+        android:id="@+id/tabs_navigationview"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="0"
+        app:paddingLeftFitsWindowInsets="true"
+        app:paddingRightFitsWindowInsets="true"
+        app:paddingBottomFitsWindowInsets="true"/>
+</LinearLayout>

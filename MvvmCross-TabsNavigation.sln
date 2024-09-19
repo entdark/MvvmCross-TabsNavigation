@@ -1,0 +1,51 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.11
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabsNavigation.Core", "TabsNavigation.Core\TabsNavigation.Core.csproj", "{1F52E29C-9D8D-433B-BECC-C2D90D8FB3CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabsNavigation.iOS", "TabsNavigation.iOS\TabsNavigation.iOS.csproj", "{C77F912E-4B20-4686-9AAE-BDE5DA455A0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabsNavigation.Android", "TabsNavigation.Android\TabsNavigation.Android.csproj", "{9BA5439B-2E0D-42C8-8322-5FFDFBE009F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Debug.Android|Any CPU = Debug.Android|Any CPU
+		Debug.iosSimulator|Any CPU = Debug.iosSimulator|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F52E29C-9D8D-433B-BECC-C2D90D8FB3CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F52E29C-9D8D-433B-BECC-C2D90D8FB3CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F52E29C-9D8D-433B-BECC-C2D90D8FB3CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F52E29C-9D8D-433B-BECC-C2D90D8FB3CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F52E29C-9D8D-433B-BECC-C2D90D8FB3CD}.Debug.Android|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F52E29C-9D8D-433B-BECC-C2D90D8FB3CD}.Debug.Android|Any CPU.Build.0 = Debug|Any CPU
+		{1F52E29C-9D8D-433B-BECC-C2D90D8FB3CD}.Debug.iosSimulator|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F52E29C-9D8D-433B-BECC-C2D90D8FB3CD}.Debug.iosSimulator|Any CPU.Build.0 = Debug|Any CPU
+		{C77F912E-4B20-4686-9AAE-BDE5DA455A0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C77F912E-4B20-4686-9AAE-BDE5DA455A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C77F912E-4B20-4686-9AAE-BDE5DA455A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C77F912E-4B20-4686-9AAE-BDE5DA455A0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C77F912E-4B20-4686-9AAE-BDE5DA455A0D}.Debug.Android|Any CPU.ActiveCfg = Debug|Any CPU
+		{C77F912E-4B20-4686-9AAE-BDE5DA455A0D}.Debug.Android|Any CPU.Build.0 = Debug|Any CPU
+		{C77F912E-4B20-4686-9AAE-BDE5DA455A0D}.Debug.iosSimulator|Any CPU.ActiveCfg = Debug|Any CPU
+		{C77F912E-4B20-4686-9AAE-BDE5DA455A0D}.Debug.iosSimulator|Any CPU.Build.0 = Debug|Any CPU
+		{9BA5439B-2E0D-42C8-8322-5FFDFBE009F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA5439B-2E0D-42C8-8322-5FFDFBE009F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BA5439B-2E0D-42C8-8322-5FFDFBE009F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BA5439B-2E0D-42C8-8322-5FFDFBE009F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BA5439B-2E0D-42C8-8322-5FFDFBE009F4}.Debug.Android|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA5439B-2E0D-42C8-8322-5FFDFBE009F4}.Debug.Android|Any CPU.Build.0 = Debug|Any CPU
+		{9BA5439B-2E0D-42C8-8322-5FFDFBE009F4}.Debug.iosSimulator|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BA5439B-2E0D-42C8-8322-5FFDFBE009F4}.Debug.iosSimulator|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9136A91D-88EC-4D7C-AC3E-D97B09D756FD}
+	EndGlobalSection
+EndGlobal

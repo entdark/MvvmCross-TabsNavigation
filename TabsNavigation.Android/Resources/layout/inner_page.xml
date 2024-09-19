@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:paddingTopFitsWindowInsets="true"
+        app:paddingLeftFitsWindowInsets="true"
+        app:paddingRightFitsWindowInsets="true">
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="?android:attr/colorBackground"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <TextView
+            tools:text="Tab stack depth: 2"
+            android:textAppearance="?attr/textAppearanceDisplaySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:MvxBind="Text Format('Tab stack depth: {0}', Depth)"/>
+        <Button
+            android:text="Go deeper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:MvxBind="Click GoToInnerPageCommand"/>
+        <Button
+            style="?attr/materialButtonOutlinedStyle"
+            android:text="Go back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:MvxBind="Click CloseCommand"/>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
