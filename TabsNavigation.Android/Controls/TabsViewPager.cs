@@ -48,7 +48,6 @@ public class TabsViewPager : AndroidX.ViewPager.Widget.ViewPager
         {
             var adapter = Adapter as MvxCachingFragmentStatePagerAdapter;
             //HACK: actually getting an existing fragment: https://github.com/MvvmCross/MvvmCross/blob/bde315c52b61c84f1e1f0d7f913a1c14359e486b/MvvmCross/Platforms/Android/Views/ViewPager/MvxCachingFragmentPagerAdapter.cs#L93
-            //TODO: test if restoration works correctly
             var fragment = adapter?.InstantiateItem(null, CurrentItem) as Fragment;
             return fragment;
         }

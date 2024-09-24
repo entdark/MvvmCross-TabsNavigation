@@ -18,7 +18,7 @@ public class NavigationService : MvxNavigationService, INavigationService
         return results.All(result => result);
     }
 
-    public async Task MoveToTab(NavigaionTab tab, bool popToRoot = true)
+    public async Task MoveToTab(NavigationTab tab, bool popToRoot = true)
     {
         await this.ChangePresentation(new MoveToTabPresentationHint(tab) { PopToRoot = popToRoot });
     }

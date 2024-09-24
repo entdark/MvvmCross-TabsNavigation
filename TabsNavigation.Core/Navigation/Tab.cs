@@ -1,6 +1,6 @@
 ﻿namespace TabsNavigation.Core.Models.Navigation;
 
-public enum NavigaionTab
+public enum NavigationTab
 {
     TabStack,
     MainStack,

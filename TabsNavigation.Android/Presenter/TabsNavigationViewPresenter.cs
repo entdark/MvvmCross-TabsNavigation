@@ -33,7 +33,6 @@ public class TabsNavigationViewPresenter : MvxAndroidViewPresenter
 
     protected Task<bool> ShowPushFragment(Type view, PushFragmentPresentationAttribute attribute, MvxViewModelRequest request)
     {
-        // check for a ViewPager inside a Fragment
         if (attribute.TabsFragmentHostViewType != null)
         {
             var fragment = GetFragmentByViewType(attribute.TabsFragmentHostViewType);
@@ -49,7 +48,6 @@ public class TabsNavigationViewPresenter : MvxAndroidViewPresenter
 
     protected Task<bool> ClosePushFragment(IMvxViewModel viewModel, PushFragmentPresentationAttribute attribute)
     {
-        // check for a ViewPager inside a Fragment
         if (attribute.TabsFragmentHostViewType != null)
         {
             var fragment = GetFragmentByViewType(attribute.TabsFragmentHostViewType);
@@ -227,7 +225,7 @@ public class TabsNavigationViewPresenter : MvxAndroidViewPresenter
 
             if (ViewModel.ShowActualViewModel != null)
             {
-                ViewModel.ShowActualViewModel?.Invoke(this);
+                ViewModel.ShowActualViewModel(this);
                 ViewModel.ShowActualViewModel = null;
             }
 

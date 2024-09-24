@@ -7,5 +7,5 @@ public interface INavigationService : IMvxNavigationService
 {
     Task<bool> Navigate(Type[] viewModelTypes);
 
-    Task MoveToTab(NavigaionTab tab, bool popToRoot = true);
+    Task MoveToTab(NavigationTab tab, bool popToRoot = true);
 }

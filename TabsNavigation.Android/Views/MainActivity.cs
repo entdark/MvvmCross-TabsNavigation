@@ -13,7 +13,7 @@ namespace TabsNavigation.Android.Views;
    Label = "@string/app_name",
    MainLauncher = true,
    Theme = "@style/AppTheme",
-   LaunchMode = LaunchMode.SingleTop,
+   LaunchMode = LaunchMode.SingleInstance,
    ConfigurationChanges = ConfigChanges.ScreenLayout | ConfigChanges.ScreenSize | ConfigChanges.SmallestScreenSize | ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden,
    WindowSoftInputMode = SoftInput.StateHidden | SoftInput.AdjustPan
 )]

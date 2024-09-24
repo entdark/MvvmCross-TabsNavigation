@@ -8,9 +8,9 @@ public class MoveToTabPresentationHint : MvxPresentationHint
 
     public int Tab => (int)NavigationTab;
 
-    private NavigaionTab NavigationTab { get; init; }
+    private NavigationTab NavigationTab { get; init; }
 
-    public MoveToTabPresentationHint(NavigaionTab tab)
+    public MoveToTabPresentationHint(NavigationTab tab)
     {
         NavigationTab = tab;
     }

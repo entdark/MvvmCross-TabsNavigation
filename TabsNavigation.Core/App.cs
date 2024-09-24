@@ -22,8 +22,6 @@ public class App : MvxApplication
 
 public class AppStart : MvxAppStart
 {
-    public bool InterceptReset { get; set; }
-
     public AppStart(IMvxApplication application, IMvxNavigationService navigationService) : base(application, navigationService)
     {
     }
