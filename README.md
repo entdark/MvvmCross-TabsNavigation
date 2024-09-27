@@ -2,7 +2,12 @@
 ## About
 This repository contains a sample that extends default MvvmCross navigation with tabs for Android (since it already exists in iOS). The idea was to share navigation logic between Android and iOS and make the Android one match the iOS one.
 ## Research
-The default iOS tabs navigation lets you have navigation back stacks for each tab separately. To achieve the same effect on Android I had 3 options in mind: 1) manually work with `FragmentManager`; 2) save back stacks separately and swap them since `FragmentManager` supports multiple back stacks; 3) extend already existing `ViewPager` navigation. I decided to go with the third one since it already fits better to the iOS solution where you navigate to all the tabs to create and show them. And the same goes for the `ViewPager` solution: you navigate to all the pages to display them. So the solution makes us to extend Android only and not touch iOS at all.
+The default iOS tabs navigation lets you have navigation back stacks for each tab separately. To achieve the same effect on Android I had 3 options in mind:
+1. manually work with `FragmentManager`;
+2. save back stacks separately and swap them since `FragmentManager` supports multiple back stacks;
+3. extend already existing `ViewPager` navigation.
+
+I decided to go with the 3rd one since it already fits better to the iOS solution where you navigate to all the tabs to create and show them. And the same goes for the `ViewPager` solution: you navigate to all the pages to display them. So the solution makes us to extend Android only and not touch iOS at all.
 I seeked, found, and based on an already existing solution here: https://github.com/paulppn/MvvmCross/tree/feature/add_mvx_bottom_navigation_view (https://github.com/MvvmCross/MvvmCross/pull/3340)
 ## Implementation
 ### Source types
