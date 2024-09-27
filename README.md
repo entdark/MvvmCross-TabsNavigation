@@ -1,4 +1,7 @@
 # Tabs Navigation MvvmCross sample
+| Android | iOS |
+| --- | --- |
+| ![Screenshot_1727458343](https://github.com/user-attachments/assets/957c3f06-522a-4d30-894b-2bee1cf517c9) | ![Simulator Screenshot - iPhone 15 Pro - 2024-09-27 at 20 33 00](https://github.com/user-attachments/assets/16c745d4-2bee-4014-916c-da8d1fe2e279) |
 ## About
 This repository contains a sample that extends default MvvmCross navigation with tabs for Android (since it already exists in iOS). The idea was to share navigation logic between Android and iOS and make the Android one match the iOS one.
 ## Research
