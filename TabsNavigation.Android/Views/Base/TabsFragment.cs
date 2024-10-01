@@ -100,6 +100,7 @@ public abstract class TabsFragment<TViewModel> : BaseRootFragment<TViewModel>, I
             {
                 ToggleBackPressedCallback(false);
                 Activity.OnBackPressedDispatcher.OnBackPressed();
+                ToggleBackPressedCallback(true);
             }
         }
     }
