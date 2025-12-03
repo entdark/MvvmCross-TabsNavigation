@@ -8,6 +8,7 @@ using MvvmCross.Presenters;
 using MvvmCross.Presenters.Attributes;
 using MvvmCross.ViewModels;
 using TabsNavigation.Android.Callbacks;
+using TabsNavigation.Android.Presenter;
 using TabsNavigation.Android.Presenter.Attributes;
 using TabsNavigation.Android.Views.Main;
 using TabsNavigation.Core.Navigation;
@@ -19,18 +20,58 @@ namespace TabsNavigation.Android.Views.Base;
 public abstract class BaseFragment<TViewModel> : MvxFragment<TViewModel>, IBaseFragment, IMvxOverridePresentationAttribute where TViewModel : class, IBaseViewModel
 {
     private const string BundleRegisterBackPressedCallback = nameof(BaseFragment<TViewModel>) + nameof(BundleRegisterBackPressedCallback);
+    private const string BundleIsHidden = nameof(BaseFragment<TViewModel>) + nameof(BundleIsHidden);
 
     private OnBackPressedCallback onBackPressedCallback;
+
+    private bool isHidden = false;
+    private bool postponeIsHiddenChanged = false;
 
     protected int LayoutId { get; init; }
 
     protected Toolbar Toolbar { get; private set; }
 
+    private ITabsNavigationViewPresenter presenter;
+    protected ITabsNavigationViewPresenter Presenter => presenter ??= Mvx.IoCProvider.Resolve<ITabsNavigationViewPresenter>();
+
     public bool RegisterBackPressedCallback { get; set; }
+
+    public override Java.Lang.Object EnterTransition
+    {
+	    get => isHidden ? base.ExitTransition : base.EnterTransition;
+	    set => base.EnterTransition = value;
+    }
 
     public BaseFragment(int layoutId)
     {
         LayoutId = layoutId;
+    }
+
+    public override void OnHiddenChanged(bool hidden)
+    {
+	    base.OnHiddenChanged(hidden);
+
+	    if (Presenter.PreferShowHideOverReplace)
+	    {
+		    if (hidden)
+			    isHidden = hidden;
+		    else
+			    postponeIsHiddenChanged = true;
+	    }
+    }
+
+    public override void OnResume()
+    {
+	    base.OnResume();
+
+	    if (Presenter.PreferShowHideOverReplace)
+	    {
+		    if (postponeIsHiddenChanged)
+		    {
+			    isHidden = false;
+			    postponeIsHiddenChanged = false;
+		    }
+	    }
     }
 
     public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -77,6 +118,7 @@ public abstract class BaseFragment<TViewModel> : MvxFragment<TViewModel>, IBaseF
     {
         base.OnSaveInstanceState(outState);
         outState.PutBoolean(BundleRegisterBackPressedCallback, RegisterBackPressedCallback);
+        outState.PutBoolean(BundleIsHidden, isHidden);
     }
 
     public virtual void OnRestoreInstanceState(Bundle savedInstanceState)
@@ -85,6 +127,7 @@ public abstract class BaseFragment<TViewModel> : MvxFragment<TViewModel>, IBaseF
             return;
 
         RegisterBackPressedCallback = savedInstanceState.GetBoolean(BundleRegisterBackPressedCallback, RegisterBackPressedCallback);
+        isHidden = savedInstanceState.GetBoolean(BundleIsHidden, isHidden);
     }
 
     public override Animation OnCreateAnimation(int transit, bool enter, int nextAnim)
@@ -142,8 +185,12 @@ public abstract class BaseFragment<TViewModel> : MvxFragment<TViewModel>, IBaseF
 
 public abstract class BasePushFragment<TViewModel> : BaseFragment<TViewModel> where TViewModel : class, IBaseViewModel
 {
-    public BasePushFragment(int layoutId) : base(layoutId)
-    {
+	public BasePushFragment(int layoutId) : base(layoutId)
+	{
+		if (Presenter.PreferShowHideOverReplace)
+		{
+			RegisterBackPressedCallback = true;
+		}
         EnterTransition = new MaterialSharedAxis(MaterialSharedAxis.X, true);
         ExitTransition = new MaterialSharedAxis(MaterialSharedAxis.X, false);
     }

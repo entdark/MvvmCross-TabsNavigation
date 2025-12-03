@@ -7,6 +7,7 @@ using MvvmCross.Platforms.Android;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using MvvmCross.Platforms.Android.Views;
 using MvvmCross.Platforms.Android.Views.Fragments;
 using MvvmCross.Presenters;
 using MvvmCross.ViewModels;
@@ -14,12 +15,16 @@ using TabsNavigation.Android.Controls;
 using TabsNavigation.Android.Presenter.Attributes;
 using TabsNavigation.Android.Views.Base;
 using TabsNavigation.Core.Models.Navigation.Hints;
+using Fragment = AndroidX.Fragment.App.Fragment;
+using FragmentManager = AndroidX.Fragment.App.FragmentManager;
 
 namespace TabsNavigation.Android.Presenter;
 
-public class TabsNavigationViewPresenter : MvxAndroidViewPresenter
+public class TabsNavigationViewPresenter : MvxAndroidViewPresenter, ITabsNavigationViewPresenter
 {
-    public TabsNavigationViewPresenter(IEnumerable<Assembly> androidViewAssemblies) : base(androidViewAssemblies)
+	public bool PreferShowHideOverReplace { get; init; }
+
+	public TabsNavigationViewPresenter(IEnumerable<Assembly> androidViewAssemblies) : base(androidViewAssemblies)
     {
     }
 
@@ -200,6 +205,155 @@ public class TabsNavigationViewPresenter : MvxAndroidViewPresenter
             return false;
         }
         return await base.ChangePresentation(hint);
+    }
+
+    protected override void PerformShowFragmentTransaction(
+        FragmentManager fragmentManager,
+        MvxFragmentPresentationAttribute attribute,
+        MvxViewModelRequest request)
+    {
+//      ValidateArguments(attribute, request);
+
+        if (fragmentManager == null)
+            throw new ArgumentNullException(nameof(fragmentManager));
+
+        var fragmentName = attribute.Tag ?? attribute.ViewType.FragmentJavaName();
+
+        IMvxFragmentView? fragmentView = null;
+        if (attribute.IsCacheableFragment)
+        {
+            fragmentView = (IMvxFragmentView?)fragmentManager.FindFragmentByTag(fragmentName);
+        }
+
+        if (fragmentView == null && attribute.ViewType != null)
+            fragmentView = CreateFragment(fragmentManager, attribute, attribute.ViewType);
+
+        var fragment = fragmentView?.ToFragment();
+        if (fragment == null)
+            throw new MvxException($"Fragment {fragmentName} is null. Cannot perform Fragment Transaction.");
+
+        // MvxNavigationService provides an already instantiated ViewModel here
+        if (request is MvxViewModelInstanceRequest instanceRequest)
+        {
+            fragmentView!.ViewModel = instanceRequest.ViewModelInstance;
+        }
+
+        // save MvxViewModelRequest in the Fragment's Arguments
+#pragma warning disable CA2000 // Dispose objects before losing scope
+        var bundle = new Bundle();
+#pragma warning restore CA2000 // Dispose objects before losing scope
+        var serializedRequest = NavigationSerializer?.Serializer.SerializeObject(request);
+        if (!string.IsNullOrEmpty(serializedRequest))
+            bundle.PutString(ViewModelRequestBundleKey, serializedRequest);
+
+        if (fragment.Arguments == null)
+        {
+            fragment.Arguments = bundle;
+        }
+        else
+        {
+            fragment.Arguments.Clear();
+            fragment.Arguments.PutAll(bundle);
+        }
+
+        var ft = fragmentManager.BeginTransaction();
+
+        OnBeforeFragmentChanging(ft, fragment, attribute, request);
+
+        if (attribute.AddToBackStack)
+            ft.AddToBackStack(fragmentName);
+
+        OnFragmentChanging(ft, fragment, attribute, request);
+
+        if (attribute.AddFragment && fragment.IsAdded)
+        {
+            ft.Show(fragment);
+        }
+        else if (PreferShowHideOverReplace || attribute.AddFragment)
+        {
+            if (PreferShowHideOverReplace && fragmentManager.Fragments?.Count > 0)
+	            ft.Hide(fragmentManager.Fragments[^1]);
+            ft.Add(attribute.FragmentContentId, fragment, fragmentName);
+        }
+        else
+        {
+            ft.Replace(attribute.FragmentContentId, fragment, fragmentName);
+        }
+
+        ft.CommitAllowingStateLoss();
+
+        OnFragmentChanged(ft, fragment, attribute, request);
+    }
+
+    protected override bool TryPerformCloseFragmentTransaction(
+        FragmentManager fragmentManager,
+        MvxFragmentPresentationAttribute fragmentAttribute)
+    {
+//	    ValidateArguments(fragmentAttribute);
+
+        if (fragmentManager == null)
+	        throw new ArgumentNullException(nameof(fragmentManager));
+
+        try
+        {
+	        var fragmentName = fragmentAttribute.Tag ?? fragmentAttribute.ViewType.FragmentJavaName();
+	        if (fragmentManager.BackStackEntryCount > 0)
+	        {
+//			    PopOnBackstackEntries(fragmentName, fragmentManager, fragmentAttribute);
+		        return base.TryPerformCloseFragmentTransaction(fragmentManager, fragmentAttribute);
+	        }
+
+	        Fragment? fragmentToPop = fragmentManager.FindFragmentByTag(fragmentName);
+	        if (fragmentToPop != null)
+	        {
+		        PopFragment(fragmentManager, fragmentAttribute, fragmentToPop);
+		        return true;
+	        }
+        }
+#pragma warning disable CA1031 // Do not catch general exception types
+        catch (System.Exception ex)
+#pragma warning restore CA1031 // Do not catch general exception types
+        {
+	        return false;
+        }
+
+        return false;
+    }
+
+    private void PopFragment(FragmentManager fragmentManager, MvxFragmentPresentationAttribute fragmentAttribute,
+        Fragment fragmentToPop)
+    {
+        var ft = fragmentManager.BeginTransaction();
+
+        if (!fragmentAttribute.EnterAnimation.Equals(int.MinValue) &&
+            !fragmentAttribute.ExitAnimation.Equals(int.MinValue))
+        {
+	        if (!fragmentAttribute.PopEnterAnimation.Equals(int.MinValue) &&
+	            !fragmentAttribute.PopExitAnimation.Equals(int.MinValue))
+	        {
+		        ft.SetCustomAnimations(
+			        fragmentAttribute.EnterAnimation,
+			        fragmentAttribute.ExitAnimation,
+			        fragmentAttribute.PopEnterAnimation,
+			        fragmentAttribute.PopExitAnimation);
+	        }
+	        else
+	        {
+		        ft.SetCustomAnimations(
+			        fragmentAttribute.EnterAnimation,
+			        fragmentAttribute.ExitAnimation);
+	        }
+        }
+
+        if (fragmentAttribute.TransitionStyle != int.MinValue)
+	        ft.SetTransitionStyle(fragmentAttribute.TransitionStyle);
+
+        ft.Remove(fragmentToPop);
+        if (PreferShowHideOverReplace && fragmentManager.Fragments?.Count > 1)
+	        ft.Show(fragmentManager.Fragments[^2]);
+        ft.CommitAllowingStateLoss();
+
+        OnFragmentPopped(ft, fragmentToPop, fragmentAttribute);
     }
 
     private class WrapperTabViewModel : MvxViewModel

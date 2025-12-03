@@ -39,7 +39,17 @@ public class Setup : MvxAndroidSetup<App>
 
     protected override IMvxAndroidViewPresenter CreateViewPresenter()
     {
-        return new TabsNavigationViewPresenter(AndroidViewAssemblies);
+	    return new TabsNavigationViewPresenter(AndroidViewAssemblies)
+        {
+	        PreferShowHideOverReplace = false
+        };
+    }
+
+    protected override void RegisterPresenter(IMvxIoCProvider iocProvider)
+    {
+	    base.RegisterPresenter(iocProvider);
+
+	    iocProvider.RegisterSingleton<ITabsNavigationViewPresenter>(Presenter as TabsNavigationViewPresenter);
     }
 
     protected override MvxBindingBuilder CreateBindingBuilder()
