@@ -9,7 +9,7 @@ public class InnerPageViewModel : BaseViewModel<int>
 {
     public IMvxCommand GoToInnerPageCommand { get; init; }
 
-    private int depth;
+    private int depth = 1;
     public int Depth
     {
         get => depth;
@@ -19,13 +19,6 @@ public class InnerPageViewModel : BaseViewModel<int>
     public InnerPageViewModel()
     {
         GoToInnerPageCommand = new MvxAsyncCommand(async () => await NavigationService.Navigate<InnerPageViewModel, int>(Depth+1));
-    }
-
-    public override void Prepare()
-    {
-        base.Prepare();
-
-        Depth = 1;
     }
 
     public override void Prepare(int parameter)
