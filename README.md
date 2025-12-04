@@ -58,4 +58,6 @@ By default when the app starts it navigates to the first VM. But then when the a
 Also since removal of `MvxSplashScreenActivity` there is no any first navigations at all on Android: https://github.com/MvvmCross/MvvmCross/pull/4846. To fix that I monitor the `MainLauncher` `Activity` lifecycle and `MvxSetup` lifecycle in `Application` to properly navigate to the first VM when everything is set up and ready.
 ## TODO
 1. Remake tabs navigation with one single presentation attribute for Android and iOS where you pass an array of VM types and they will be added automatically by presenter.
-2. Remake implementation for Android to use named back stacks instead of `ViewPager` (requires TODO #1 to be implementated first): https://developer.android.com/guide/fragments/fragmentmanager#multiple-back-stacks.
+2. ~~Remake implementation for Android to use named back stacks instead of `ViewPager` (requires TODO #1 to be implementated first): https://developer.android.com/guide/fragments/fragmentmanager#multiple-back-stacks.~~  
+An attempt to use multiple back stacks was implemented and merged into MvvmCross: https://github.com/MvvmCross/MvvmCross/pull/5028, but it requires a lot of manual handling thus is not perfect, and harder to make in real projects. So the current solution is better and will stay as is for now.
+3. Migrate to Navigation component: https://developer.android.com/guide/navigation
